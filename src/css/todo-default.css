@@ -21,7 +21,7 @@
   background-color: rgb(160, 118, 54);
 }
 
-.todo-item.todo-item-done .todo-item-text {
+.todo-item.todo-item-doneodo-item.todo-item-done .todo-item-text {
   text-decoration: line-through;
 }
 
