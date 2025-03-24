@@ -155,6 +155,24 @@ export const TodoFoundationTheme: TodoThemeSchema = {
   hidden: 'hide'
 }
 
+export const TodoMaterializeTheme: TodoThemeSchema = {
+  root: 'd-flex flex-column',
+  list: 'collection flex-grow-1 p-2',
+  list_item: 'collection-item d-flex align-items-center',
+  list_itemDone: '',
+  list_item_check: 'flex-grow-1 custom-checkbox',
+  list_item_text: 'flex-grow-1 me-3',
+  list_item_textDone: 'marterialize-line-through',
+  list_item_textEditInput: 'input-field flex-grow-1 me-3',
+  list_item_deleteButton: 'btn red',
+  list_item_editButton: 'btn yellow darken-2 ms-1',
+  footer: 'd-flex align-items-center p-2',
+  footer_input: 'input-field flex-grow-1 me-2',
+  footer_addButton: 'btn blue',
+  hidden: 'hide'
+}
+
+
 interface TodoOptions {
   theme: TodoThemeSchema
 }
