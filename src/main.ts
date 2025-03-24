@@ -7,5 +7,6 @@ import './css/foundation.scss'
 import './css/foundation.css'
 import './css/materialize.scss'
 import './css/materialize.css'
+import './css/tailwind.css'
 import './app'
 

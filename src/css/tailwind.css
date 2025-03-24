@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+.tailwind-line-through {
+    text-decoration: line-through;
+    
+  }
+.custom-checkbox {
+    appearance: auto !important; 
+    opacity: 1 !important; 
+    position: relative !important;
+    pointer-events: all !important; 
+  }
