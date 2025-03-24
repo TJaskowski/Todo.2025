@@ -138,6 +138,23 @@ export const TodoBulmaTheme: TodoThemeSchema = {
   hidden: 'is-hidden'
 }
 
+export const TodoFoundationTheme: TodoThemeSchema = {
+  root: 'flex-dir-column flex-container',
+  list: 'menu vertical flex-grow-1 p-2',
+  list_item: 'menu-item flex-container',
+  list_itemDone: '',
+  list_item_check: 'input-checkbox margin-right-3',
+  list_item_text: 'flex-grow-1 p-2 margin-right-3',
+  list_item_textDone: 'foundation-line-through',
+  list_item_textEditInput: 'input margin-right-3',
+  list_item_deleteButton: 'button alert',
+  list_item_editButton: 'button warning margin-left-1',
+  footer: 'flex-container flex-dir-row align-middle p-2',
+  footer_input: 'input margin-right-2',
+  footer_addButton: 'button primary',
+  hidden: 'hide'
+}
+
 interface TodoOptions {
   theme: TodoThemeSchema
 }
