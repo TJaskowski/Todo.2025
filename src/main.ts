@@ -1,12 +1,3 @@
 import './css/app.css'
-// import './css/todo-default.css'
-import './css/bootstrap.scss'
-import './css/bulma.scss'
-import './css/bulma.css'
-import './css/foundation.scss'
-import './css/foundation.css'
-import './css/materialize.scss'
-import './css/materialize.css'
-import './css/tailwind.css'
 import './app'
 
