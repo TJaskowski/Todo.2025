@@ -14,12 +14,18 @@ export default class TodoPage implements IPage {
 
         let storageProvider;
         const storageType = params?.storage;
-        if (storageType === 'LocalStorage') {
-            storageProvider = new LocalTodoStorage();
-        } else if (storageType === 'IndexedDb') {
-            storageProvider = new IndexedDbTodoStorage();
-        } else {
-            storageProvider = new BackendTodoStorage();
+        switch (storageType) {
+            case 'LocalStorage':
+                storageProvider = new LocalTodoStorage();
+                break;
+            case 'Backend':
+                storageProvider = new BackendTodoStorage();
+                break;
+            case 'IndexedDb':
+                storageProvider = new IndexedDbTodoStorage();
+                break;
+            default:
+                storageProvider = new LocalTodoStorage();
         }
 
         this.#todoComponent = new TodoComponent({

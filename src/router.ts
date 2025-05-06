@@ -20,7 +20,7 @@ export class Router {
 
         console.log(`Navigating to ${page} page with params:`, params);
         import(`./pages/${page}Page`).then(module => {
-            const page = new module.default(params) as IPage;
+            const page = new module.default(params);
             this.#currentPageInstance = page;
             page.mount(this.#appEl);
         });
