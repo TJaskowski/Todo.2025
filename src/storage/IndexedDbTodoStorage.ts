@@ -1,5 +1,5 @@
 import Dexie, { Table } from 'dexie'
-import { TodoItem, TodoStorageProvider } from '../components/todo'
+import { TodoItem, TodoStorageProvider } from '../components/TodoList'
 
 export class IndexedDbTodoStorage extends Dexie implements TodoStorageProvider {
     todos!: Table<TodoItem, number>

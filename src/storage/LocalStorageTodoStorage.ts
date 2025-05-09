@@ -1,4 +1,4 @@
-import { TodoItem, TodoStorageProvider } from '../components/todo'
+import { TodoItem, TodoStorageProvider } from '../components/TodoList'
 
 export class LocalStorageTodoStorage implements TodoStorageProvider {
     private readonly storageKey = 'todos'

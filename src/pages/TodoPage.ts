@@ -1,18 +1,19 @@
 import { router } from '../app';
-import { TodoComponent, TodoBoostrapTheme, TodoStorageProvider } from '../components/todo';
+import { TodoList, TodoStorageProvider } from '../components/TodoList';
+import { TodoBoostrapTheme } from '../components/TodoListThemes';
 
 import { IPage } from './IPage';
 
 export default class TodoPage implements IPage {
     #rootElement: HTMLElement;
-    #todoComponent: TodoComponent;
+    #todoComponent: TodoList;
 
     constructor(params?: { storage: TodoStorageProvider }) {
 
         this.#rootElement = document.createElement('div');
         this.#rootElement.classList.add('d-flex', 'flex-column', 'vh-100', 'bg-light');
 
-        this.#todoComponent = new TodoComponent({
+        this.#todoComponent = new TodoList({
             theme: TodoBoostrapTheme,
             storage: params?.storage
         });
