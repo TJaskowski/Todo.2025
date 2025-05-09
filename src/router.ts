@@ -1,4 +1,4 @@
-import { IPage } from "./pages/IPage";
+import { IPage, IPageConstructor } from "./pages/IPage";
 
 export class Router {
     #currentPage: string = '';
@@ -9,20 +9,18 @@ export class Router {
         this.#appEl = appEl;
     }
 
-    public goto(page: "Login" | "Todo"): void {
+    public goto(page: "Start" | "Login" | "Todo", params?: object): void {
         if (this.#currentPageInstance) {
             this.#currentPageInstance.unmount();
         }
 
         this.#currentPage = page;
-        const pageEl = document.createElement('div');
-        pageEl.id = page;
-
         console.log(`Navigating to ${page} page`);
         import(`./pages/${page}Page`).then(module => {
-            const page = new module.default() as IPage;
-            this.#currentPageInstance = page;
-            page.mount(this.#appEl);
+            const PageComponent = module.default as IPageConstructor;
+            const pageInstance = new PageComponent(params);
+            this.#currentPageInstance = pageInstance;
+            pageInstance.mount(this.#appEl);
         });
     }
 

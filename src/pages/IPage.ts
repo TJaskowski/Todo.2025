@@ -13,4 +13,9 @@ export interface IPage {
      * Unmounts the page component and cleans up any resources
      */
     unmount(): void;
-} 
+}
+
+/**
+ * Type definition for the constructor of page components
+ */
+export type IPageConstructor = new (params?: object) => IPage; 

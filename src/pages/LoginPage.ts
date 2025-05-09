@@ -1,4 +1,5 @@
 import { backend, router } from "../app";
+import { BackendTodoStorage } from "../storage/BackendTodoStorage";
 import { IPage } from "./IPage";
 
 export default class LoginPage implements IPage {
@@ -7,6 +8,8 @@ export default class LoginPage implements IPage {
     #usernameInputEl: HTMLInputElement | undefined;
     #passwordInputEl: HTMLInputElement | undefined;
     #submitHandler: ((evt: Event) => void) | undefined;
+    #cancelHandler: ((evt: MouseEvent) => void) | undefined;
+    #cancelButtonEl: HTMLAnchorElement | undefined;
 
     mount(parentEl?: HTMLElement) {
         this.#rootEl = document.createElement('div');
@@ -52,6 +55,11 @@ export default class LoginPage implements IPage {
         loginButtonEl.textContent = 'Login';
         loginButtonEl.classList.add('btn', 'btn-primary', 'w-100');
 
+        this.#cancelButtonEl = document.createElement('a');
+        this.#cancelButtonEl.textContent = 'Cancel';
+        this.#cancelButtonEl.classList.add('btn', 'btn-secondary', 'w-100', 'mt-2');
+        this.#cancelButtonEl.href = '#'; // Prevent default link behavior
+
         this.#submitHandler = (evt) => {
             evt.preventDefault();
             // Handle login logic here
@@ -65,33 +73,22 @@ export default class LoginPage implements IPage {
             backend.authenticate(loginData)
                 .then(data => {
                     console.log(data)
-                    router.goto('Todo');
+                    router.goto('Todo', { storage: new BackendTodoStorage() });
                 })
                 .catch(error => {
                     console.error('Error:', error)
                     alert('Login failed!')
                 });
 
-            // fetch('https://todo-back.runasp.net/authenticate', {
-            //     method: 'POST',
-            //     headers: {
-            //         'accept': 'application/json',
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(loginData)
-            // })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         console.log(data)
-            //         router.goto('Todo');
-            //     })
-            //     .catch(error => {
-            //         console.error('Error:', error)
-            //         alert('Login failed!')
-            //     });
+        };
+
+        this.#cancelHandler = (evt: MouseEvent) => {
+            evt.preventDefault();
+            router.goto('Start');
         };
 
         this.#formEl.addEventListener('submit', this.#submitHandler);
+        this.#cancelButtonEl.addEventListener('click', this.#cancelHandler);
 
         usernameGroupEl.appendChild(usernameLabelEl);
         usernameGroupEl.appendChild(this.#usernameInputEl);
@@ -103,6 +100,7 @@ export default class LoginPage implements IPage {
         this.#formEl.appendChild(usernameGroupEl);
         this.#formEl.appendChild(passwordGroupEl);
         this.#formEl.appendChild(loginButtonEl);
+        this.#formEl.appendChild(this.#cancelButtonEl);
 
         this.#rootEl.appendChild(this.#formEl);
 
@@ -117,6 +115,9 @@ export default class LoginPage implements IPage {
         if (this.#formEl && this.#submitHandler) {
             this.#formEl.removeEventListener('submit', this.#submitHandler);
         }
+        if (this.#cancelButtonEl && this.#cancelHandler) {
+            this.#cancelButtonEl.removeEventListener('click', this.#cancelHandler);
+        }
         if (this.#rootEl) {
             this.#rootEl.remove();
         }
@@ -125,5 +126,7 @@ export default class LoginPage implements IPage {
         this.#usernameInputEl = undefined;
         this.#passwordInputEl = undefined;
         this.#submitHandler = undefined;
+        this.#cancelHandler = undefined;
+        this.#cancelButtonEl = undefined;
     }
 }
