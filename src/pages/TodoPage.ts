@@ -5,8 +5,8 @@ import { TodoBoostrapTheme } from '../components/TodoListThemes';
 import { IPage } from './IPage';
 
 export default class TodoPage implements IPage {
-    #rootElement: HTMLElement;
-    #todoComponent: TodoList;
+    #rootElement: HTMLElement | undefined;
+    #todoComponent: TodoList | undefined;
 
     constructor(params?: { storage: TodoStorageProvider }) {
 
@@ -20,6 +20,9 @@ export default class TodoPage implements IPage {
     }
 
     mount(parentElement: HTMLElement): HTMLElement {
+        const rootElement = this.#rootElement!;
+        const todoComponent = this.#todoComponent!;
+
         // Create header
         const header = document.createElement('header');
         header.classList.add('p-3', 'bg-primary', 'text-white', 'shadow-sm');
@@ -57,30 +60,26 @@ export default class TodoPage implements IPage {
         todoWrapper.setAttribute('id', 'todo-list');
         todoWrapper.classList.add('h-100', 'mx-auto', 'bg-white', 'rounded', 'shadow-sm');
         todoWrapper.style.maxWidth = '800px';
-        this.#todoComponent.mount(todoWrapper);
+        todoComponent.mount(todoWrapper);
 
         // Assemble the page
-        this.#rootElement.appendChild(header);
+        rootElement.appendChild(header);
         mainContent.appendChild(todoWrapper);
-        this.#rootElement.appendChild(mainContent);
+        rootElement.appendChild(mainContent);
 
         // Mount to parent
-        parentElement.appendChild(this.#rootElement);
+        parentElement.appendChild(rootElement);
 
-        return this.#rootElement;
+        return rootElement;
     }
 
     unmount(): void {
-        // Clean up todo component
-        // TODO implement better todo component disposal
-        const todoWrapper = document.getElementById('todo-list');
-        if (todoWrapper) {
-            todoWrapper.innerHTML = '';
-        }
+        // destroy todo component
+        this.#todoComponent!.destroy();
+        this.#todoComponent = undefined;
 
         // Remove the root element
-        if (this.#rootElement && this.#rootElement.parentElement) {
-            this.#rootElement.parentElement.removeChild(this.#rootElement);
-        }
+        this.#rootElement!.remove();
+        this.#rootElement = undefined;
     }
 } 

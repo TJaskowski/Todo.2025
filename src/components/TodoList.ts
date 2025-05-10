@@ -160,6 +160,22 @@ export class TodoList {
       if (itemDoneTextClass) textEl.classList.toggle(itemDoneTextClass, checkedValue);
     }
   }
+
+  /**
+   * @description Safely destroys component
+   * @returns {void}
+   */
+  destroy() {
+    // remove from DOM
+    this.#rootEl?.remove();
+
+    // release references
+    this.#rootEl = undefined;
+    this.#listEl = undefined;
+    this.#inputEl = undefined;
+    this.#theme = undefined;
+    this.#storageProvider = undefined;
+  }
 }
 
 
