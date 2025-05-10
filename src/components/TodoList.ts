@@ -16,16 +16,19 @@ export class TodoList {
     this.#rootEl.classList.add(...classUnify(this.#theme?.root ?? 'todo'));
 
     this.#listEl = document.createElement('ul');
+    this.#listEl.dataset.testid = 'todo-list';
     this.#listEl.classList.add(...classUnify(this.#theme?.list ?? 'todo-list'));
 
     const footerEl = document.createElement('form');
     footerEl.classList.add(...classUnify(this.#theme?.footer ?? 'todo-footer'));
 
     this.#inputEl = document.createElement('textarea');
+    this.#inputEl.dataset.testid = 'todo-input';
     this.#inputEl.classList.add(...classUnify(this.#theme?.footer_input ?? ''));
 
     const addButtonEl = document.createElement('button');
     addButtonEl.textContent = 'Dodaj'
+    addButtonEl.dataset.testid = 'todo-add-button';
     addButtonEl.classList.add(...classUnify(this.#theme?.footer_addButton ?? ''));
     addButtonEl.addEventListener('click', (evt) => {
       this.#addItem()
